@@ -1,17 +1,15 @@
+## Usage/Examples
+paste this code
+double click to show parameters
+![parameters example](https://github.com/GitStudentSem/canvas-parameters/raw/master/images/parameters.png)
 
 ## Installation
-
 Install сanvas-parameters with npm
-
-
 
 ```bash
   npm i canvas-parameters
 ```
     
-## Usage/Examples
-paste this code
-double click to show parameters
 
 ### Example usage
 ```javascript
@@ -103,10 +101,7 @@ new CanvasParameters(
 		},
 	],
 	{
-		defaulsVisible: false,
-		onShowEvent: "dblclick",
 		onUpdateCanvas: drawRectange,
-		position: { top: "100%", left: "50%" },
 	},
 );
 ```
