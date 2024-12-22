@@ -1,15 +1,21 @@
 {
-  "name": "canvas-parameters",
-  "version": "1.0.0",
-  "description": "Добавляет элемент с настройками для ваших канвас проектов",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "canvas",
-    "HTML"
-  ],
-  "author": "@gitstudentsem",
-  "license": "ISC"
+	"name": "canvas-parameters",
+	"version": "1.0.0",
+	"description": "Добавляет элемент с настройками для ваших канвас проектов",
+	"type": "module",
+	"scripts": {
+		"build": "tsc"
+	},
+	"keywords": ["canvas", "HTML"],
+	"author": "@gitstudentsem",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GitStudentSem/canvas-parameters"
+	},
+	"homepage": "https://github.com/GitStudentSem/canvas-parameters#readme",
+
+	"main": "dist/index.js",
+	"types": "src/index.ts",
+	"files": ["dist", "index.ts"]
 }

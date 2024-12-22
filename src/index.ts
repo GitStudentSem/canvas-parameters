@@ -1,5 +1,10 @@
 type InputsInfo = Array<
-	Partial<HTMLInputElement> & { name: string; value: string }
+	Omit<Partial<HTMLInputElement>, "name" | "value"> & {
+		/** The name of the class parameter to be updated */
+		name: string;
+		/** The value of the class parameter to be updated */
+		value: string;
+	}
 >;
 export class Parameters {
 	parametersWrapper?: HTMLDivElement;

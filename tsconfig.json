@@ -1,24 +1,21 @@
 {
 	"compilerOptions": {
-		"target": "ES2020",
+		"target": "ES2017",
 		"useDefineForClassFields": true,
-		"module": "ESNext",
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"module": "CommonJS",
+		"lib": ["ES2017.Object", "ES2017", "DOM"],
 		"skipLibCheck": true,
-
-		/* Bundler mode */
-		"moduleResolution": "bundler",
-		"allowImportingTsExtensions": true,
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
 		"moduleDetection": "force",
-		"noEmit": true,
 
-		/* Linting */
 		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUncheckedSideEffectImports": true
+		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["parameters"]
+	"include": ["src/**/*"]
 }
