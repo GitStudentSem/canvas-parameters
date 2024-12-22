@@ -1,4 +1,4 @@
-![parameters example](https://raw.githubusercontent.com/GitStudentSem/canvas-parameters/master/images/parameters.jpg)
+![parameters example](https://raw.githubusercontent.com/GitStudentSem/canvas-parameters/master/images/parameters-preview.gif)
 
 ## Usage/Examples
 paste this code

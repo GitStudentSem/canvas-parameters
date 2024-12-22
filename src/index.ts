@@ -107,8 +107,8 @@ export default class CanvasParameters {
 			});
 			if (!control) throw new Error("Control  was not founed");
 
-			this.onUpdateCanvas?.();
 			control.onChange(target.value);
+			this.onUpdateCanvas?.();
 		});
 	}
 }
