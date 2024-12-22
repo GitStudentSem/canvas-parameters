@@ -1,0 +1,15 @@
+{
+  "name": "canvas-parameters",
+  "version": "1.0.0",
+  "description": "Добавляет элемент с настройками для ваших канвас проектов",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "canvas",
+    "HTML"
+  ],
+  "author": "@gitstudentsem",
+  "license": "ISC"
+}
