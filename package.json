@@ -1,6 +1,6 @@
 {
 	"name": "canvas-parameters",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Добавляет элемент с настройками для ваших канвас проектов",
 	"type": "module",
 	"scripts": {
