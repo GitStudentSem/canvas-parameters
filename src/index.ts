@@ -1,32 +1,22 @@
-type InputsInfo = Array<
-	Omit<Partial<HTMLInputElement>, "name" | "value"> & {
-		/** The name of the class parameter to be updated */
-		name: string;
-		/** The value of the class parameter to be updated */
-		value: string;
-	}
->;
+import type { InputsInfo, Options, Position } from "./types";
+
 export default class CanvasParameters {
 	parametersWrapper?: HTMLDivElement;
-	values: { [key: string]: string };
-
-	/** Your class for creating a scene */
-	canvasClass: any;
 	inputsInfo: InputsInfo;
-	/**
-	 *
-	 * @param inputsInfo {InputsInfo}
-	 * @param canvasClass Your class for creating a scene
-	 */
-	constructor(inputsInfo: InputsInfo, canvasClass: any) {
+	onShowEvent: string;
+	isVisible: boolean;
+	position?: Position;
+	onUpdateCanvas?: () => void;
+	constructor(inputsInfo: InputsInfo, options?: Options) {
 		this.inputsInfo = inputsInfo;
-		this.values = {};
+		this.isVisible = options?.defaulsVisible || true;
+		this.onShowEvent = options?.onShowEvent || "dblclick";
+		this.position = options?.position;
+
+		this.onUpdateCanvas = options?.onUpdateCanvas;
 		this.createParameters();
 		this.createInputs(this.getParametersWrapper());
 		this.handleClick();
-
-		this.setInitialValues();
-		this.canvasClass = canvasClass;
 	}
 
 	private createParameters() {
@@ -42,7 +32,8 @@ export default class CanvasParameters {
 		for (let i = 0; i < this.inputsInfo.length; i++) {
 			const inputInfo = this.inputsInfo[i];
 			const labelNode = document.createElement("label");
-			labelNode.textContent = inputInfo.placeholder || "Значение не определено";
+			labelNode.textContent =
+				inputInfo.placeholder || "Placeholder is not defined";
 			const inputNode = document.createElement("input");
 			const randomId = Math.random().toString();
 
@@ -66,27 +57,26 @@ export default class CanvasParameters {
 
 	private getParametersWrapper() {
 		if (!this.parametersWrapper) {
-			throw new Error("Обертка для параметров не была создана");
+			throw new Error("The wrapper for the parameters was not created.");
 		}
 		return this.parametersWrapper;
 	}
 
 	private handleClick() {
-		document.addEventListener("dblclick", () => {
+		document.addEventListener(this.onShowEvent, () => {
 			const parametersWrapper = this.getParametersWrapper();
-
-			if (parametersWrapper.style.display === "none") {
-				parametersWrapper.style.display = "grid";
-			} else {
+			if (this.isVisible) {
 				parametersWrapper.style.display = "none";
+			} else {
+				parametersWrapper.style.display = "grid";
 			}
+			this.isVisible = !this.isVisible;
 		});
 	}
 
 	private setStyleForInputNode(inputNode: HTMLInputElement) {
 		inputNode.style.display = "block";
 		inputNode.style.margin = "5px";
-		inputNode.style.padding = "5px";
 		inputNode.style.outline = "0";
 		inputNode.style.border = "none";
 	}
@@ -94,38 +84,31 @@ export default class CanvasParameters {
 	private setStyleForParametersWrapperNode() {
 		const parametersWrapper = this.getParametersWrapper();
 		parametersWrapper.style.position = "absolute";
-		parametersWrapper.style.top = "0px";
-		parametersWrapper.style.left = "0px";
+		parametersWrapper.style.top = this.position?.top || "0px";
+		parametersWrapper.style.left = this.position?.left || "0px";
 		parametersWrapper.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
 		parametersWrapper.style.fontFamily = "sans-serif";
 		parametersWrapper.style.padding = "5px";
-		parametersWrapper.style.display = "grid";
+		parametersWrapper.style.display = this.isVisible ? "grid" : "none";
 		parametersWrapper.style.gridTemplateColumns = "repeat(2, 1fr)";
-
+		parametersWrapper.style.userSelect = "none";
 		parametersWrapper.style.gap = "5px";
 		parametersWrapper.style.alignItems = "center";
 		parametersWrapper.style.color = "#ffffff";
 	}
 
-	private setInitialValues() {
-		for (let i = 0; i < this.inputsInfo.length; i++) {
-			const inputInfo = this.inputsInfo[i];
-			this.values = { ...this.values, [inputInfo.name]: inputInfo.value };
-		}
-	}
-
 	private handleInputChange(inputNode: HTMLInputElement) {
-		inputNode.addEventListener("change", (e) => {
+		inputNode.addEventListener("input", (e) => {
 			const target = e.target as HTMLInputElement;
-			if (!target) throw new Error("Параметр не был найден");
+			if (!target) throw new Error("Target was not founed");
 
-			this.values[target.name] = target.value;
+			const control = this.inputsInfo.find((inputInfo) => {
+				return inputInfo.name === target.name;
+			});
+			if (!control) throw new Error("Control  was not founed");
 
-			const canvas = document.getElementsByTagName("canvas")[0];
-			document.body.removeChild(canvas);
-			const newValues = { ...this.values, [target.name]: target.value };
-
-			new this.canvasClass(newValues);
+			this.onUpdateCanvas?.();
+			control.onChange(target.value);
 		});
 	}
 }

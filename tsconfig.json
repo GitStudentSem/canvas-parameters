@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"target": "ES2017",
+		"target": "ES2015",
 		"useDefineForClassFields": true,
-		"module": "CommonJS",
+		"module": "ESNext",
 		"lib": ["ES2017.Object", "ES2017", "DOM"],
 		"skipLibCheck": true,
 		"outDir": "./dist",
@@ -17,5 +17,6 @@
 		"noFallthroughCasesInSwitch": true,
 		"allowSyntheticDefaultImports": true
 	},
-	"include": ["src/**/*"]
+	"include": ["src/**/*"],
+	"exclude": ["testPlayGround"]
 }

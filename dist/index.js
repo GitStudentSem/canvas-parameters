@@ -1,26 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class CanvasParameters {
-    /**
-     *
-     * @param inputsInfo {InputsInfo}
-     * @param canvasClass Your class for creating a scene
-     */
-    constructor(inputsInfo, canvasClass) {
+export default class CanvasParameters {
+    constructor(inputsInfo, options) {
         Object.defineProperty(this, "parametersWrapper", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "values", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        /** Your class for creating a scene */
-        Object.defineProperty(this, "canvasClass", {
             enumerable: true,
             configurable: true,
             writable: true,
@@ -32,13 +12,38 @@ class CanvasParameters {
             writable: true,
             value: void 0
         });
+        Object.defineProperty(this, "onShowEvent", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "isVisible", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "position", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "onUpdateCanvas", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
         this.inputsInfo = inputsInfo;
-        this.values = {};
+        this.isVisible = (options === null || options === void 0 ? void 0 : options.defaulsVisible) || true;
+        this.onShowEvent = (options === null || options === void 0 ? void 0 : options.onShowEvent) || "dblclick";
+        this.position = options === null || options === void 0 ? void 0 : options.position;
+        this.onUpdateCanvas = options === null || options === void 0 ? void 0 : options.onUpdateCanvas;
         this.createParameters();
         this.createInputs(this.getParametersWrapper());
         this.handleClick();
-        this.setInitialValues();
-        this.canvasClass = canvasClass;
     }
     createParameters() {
         const parametersWrapper = document.createElement("div");
@@ -50,7 +55,8 @@ class CanvasParameters {
         for (let i = 0; i < this.inputsInfo.length; i++) {
             const inputInfo = this.inputsInfo[i];
             const labelNode = document.createElement("label");
-            labelNode.textContent = inputInfo.placeholder || "Значение не определено";
+            labelNode.textContent =
+                inputInfo.placeholder || "Placeholder is not defined";
             const inputNode = document.createElement("input");
             const randomId = Math.random().toString();
             labelNode.htmlFor = randomId;
@@ -69,59 +75,57 @@ class CanvasParameters {
     }
     getParametersWrapper() {
         if (!this.parametersWrapper) {
-            throw new Error("Обертка для параметров не была создана");
+            throw new Error("The wrapper for the parameters was not created.");
         }
         return this.parametersWrapper;
     }
     handleClick() {
-        document.addEventListener("dblclick", () => {
+        document.addEventListener(this.onShowEvent, () => {
             const parametersWrapper = this.getParametersWrapper();
-            if (parametersWrapper.style.display === "none") {
-                parametersWrapper.style.display = "grid";
-            }
-            else {
+            if (this.isVisible) {
                 parametersWrapper.style.display = "none";
             }
+            else {
+                parametersWrapper.style.display = "grid";
+            }
+            this.isVisible = !this.isVisible;
         });
     }
     setStyleForInputNode(inputNode) {
         inputNode.style.display = "block";
         inputNode.style.margin = "5px";
-        inputNode.style.padding = "5px";
         inputNode.style.outline = "0";
         inputNode.style.border = "none";
     }
     setStyleForParametersWrapperNode() {
+        var _a, _b;
         const parametersWrapper = this.getParametersWrapper();
         parametersWrapper.style.position = "absolute";
-        parametersWrapper.style.top = "0px";
-        parametersWrapper.style.left = "0px";
+        parametersWrapper.style.top = ((_a = this.position) === null || _a === void 0 ? void 0 : _a.top) || "0px";
+        parametersWrapper.style.left = ((_b = this.position) === null || _b === void 0 ? void 0 : _b.left) || "0px";
         parametersWrapper.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
         parametersWrapper.style.fontFamily = "sans-serif";
         parametersWrapper.style.padding = "5px";
-        parametersWrapper.style.display = "grid";
+        parametersWrapper.style.display = this.isVisible ? "grid" : "none";
         parametersWrapper.style.gridTemplateColumns = "repeat(2, 1fr)";
+        parametersWrapper.style.userSelect = "none";
         parametersWrapper.style.gap = "5px";
         parametersWrapper.style.alignItems = "center";
         parametersWrapper.style.color = "#ffffff";
     }
-    setInitialValues() {
-        for (let i = 0; i < this.inputsInfo.length; i++) {
-            const inputInfo = this.inputsInfo[i];
-            this.values = Object.assign(Object.assign({}, this.values), { [inputInfo.name]: inputInfo.value });
-        }
-    }
     handleInputChange(inputNode) {
-        inputNode.addEventListener("change", (e) => {
+        inputNode.addEventListener("input", (e) => {
+            var _a;
             const target = e.target;
             if (!target)
-                throw new Error("Параметр не был найден");
-            this.values[target.name] = target.value;
-            const canvas = document.getElementsByTagName("canvas")[0];
-            document.body.removeChild(canvas);
-            const newValues = Object.assign(Object.assign({}, this.values), { [target.name]: target.value });
-            new this.canvasClass(newValues);
+                throw new Error("Target was not founed");
+            const control = this.inputsInfo.find((inputInfo) => {
+                return inputInfo.name === target.name;
+            });
+            if (!control)
+                throw new Error("Control  was not founed");
+            (_a = this.onUpdateCanvas) === null || _a === void 0 ? void 0 : _a.call(this);
+            control.onChange(target.value);
         });
     }
 }
-exports.default = CanvasParameters;
