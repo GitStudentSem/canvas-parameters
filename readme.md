@@ -1,7 +1,7 @@
 ## Usage/Examples
 paste this code
 double click to show parameters
-![parameters example](https://github.com/GitStudentSem/canvas-parameters/raw/master/images/parameters.png)
+![parameters example](https://github.com/GitStudentSem/canvas-parameters/master/images/parameters.png)
 
 ## Installation
 Install сanvas-parameters with npm
