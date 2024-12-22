@@ -6,7 +6,7 @@ type InputsInfo = Array<
 		value: string;
 	}
 >;
-export default class Parameters {
+export default class CanvasParameters {
 	parametersWrapper?: HTMLDivElement;
 	values: { [key: string]: string };
 

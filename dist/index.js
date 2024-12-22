@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Parameters {
+class CanvasParameters {
     /**
      *
      * @param inputsInfo {InputsInfo}
@@ -124,4 +124,4 @@ class Parameters {
         });
     }
 }
-exports.default = Parameters;
+exports.default = CanvasParameters;
