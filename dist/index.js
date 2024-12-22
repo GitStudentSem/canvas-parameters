@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Parameters = void 0;
 class Parameters {
     /**
      *
@@ -125,4 +124,4 @@ class Parameters {
         });
     }
 }
-exports.Parameters = Parameters;
+exports.default = Parameters;
