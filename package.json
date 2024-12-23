@@ -4,7 +4,10 @@
 	"description": "Adds an element with settings for your project canvases",
 	"type": "module",
 	"scripts": {
-		"build": "tsc"
+		"build": "tsc",
+		"patch": "npm version patch && npm publish",
+		"minor": "npm version minor && npm publish",
+		"major": "npm version major && npm publish"
 	},
 	"keywords": ["canvas", "HTML"],
 	"author": "@gitstudentsem",
