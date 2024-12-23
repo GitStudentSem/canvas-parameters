@@ -1,4 +1,4 @@
-import type { InputsInfo, Options, Position } from "../types";
+import type { InputsInfo, Options, Position } from "canvas-parameters";
 
 export default class CanvasParameters {
 	parametersWrapper?: HTMLDivElement;
@@ -113,12 +113,3 @@ export default class CanvasParameters {
 		});
 	}
 }
-new CanvasParameters([
-	{
-		type: "number",
-		placeholder: "Balls count",
-		name: "circlesNum",
-		value: (2).toString(),
-		onChange: () => {},
-	},
-]);
