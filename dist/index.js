@@ -124,8 +124,8 @@ export default class CanvasParameters {
             });
             if (!control)
                 throw new Error("Control  was not founed");
-            (_a = this.onUpdateCanvas) === null || _a === void 0 ? void 0 : _a.call(this);
             control.onChange(target.value);
+            (_a = this.onUpdateCanvas) === null || _a === void 0 ? void 0 : _a.call(this);
         });
     }
 }
