@@ -16,8 +16,7 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 		"allowSyntheticDefaultImports": true,
-		"declaration": true,
-		"emitDeclarationOnly": true
+		"declaration": true
 	},
 	"include": ["./src/**/*", "./index.d.ts"],
 	"exclude": ["testPlayGround", "images"]
