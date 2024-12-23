@@ -18,6 +18,6 @@
 		"allowSyntheticDefaultImports": true,
 		"declaration": true
 	},
-	"include": ["./src/**/*", "./index.d.ts"],
+	"include": ["./src/**/*", "types/**/*"],
 	"exclude": ["testPlayGround", "images"]
 }

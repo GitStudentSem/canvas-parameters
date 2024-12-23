@@ -1,3 +1,4 @@
+import type { InputsInfo, Options, Position } from "canvas-parameters";
 export default class CanvasParameters {
     parametersWrapper?: HTMLDivElement;
     inputsInfo: InputsInfo;

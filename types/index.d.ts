@@ -1,6 +1,4 @@
-export {};
-
-declare global {
+declare module "canvas-parameters" {
 	export type InputsInfo = Array<
 		Omit<Partial<HTMLInputElement>, "value" | "name"> & {
 			/** uniq name for the control */
