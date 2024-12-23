@@ -1,6 +1,6 @@
 {
 	"name": "canvas-parameters",
-	"version": "1.2.5",
+	"version": "1.2.6",
 	"description": "Adds an element with settings for your project canvases",
 	"type": "module",
 	"scripts": {
