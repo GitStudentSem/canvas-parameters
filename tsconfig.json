@@ -15,9 +15,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"allowSyntheticDefaultImports": true,
-		"declaration": true
+		"allowSyntheticDefaultImports": true
 	},
-	"include": ["src/**/*", "types/**/*"],
+	"include": ["src/**/*"],
 	"exclude": ["testPlayGround", "images"]
 }
