@@ -6,10 +6,7 @@
 	"scripts": {
 		"build": "tsc"
 	},
-	"keywords": [
-		"canvas",
-		"HTML"
-	],
+	"keywords": ["canvas", "HTML"],
 	"author": "@gitstudentsem",
 	"license": "MIT",
 	"repository": {
@@ -18,9 +15,6 @@
 	},
 	"homepage": "https://github.com/GitStudentSem/canvas-parameters#readme",
 	"main": "dist/index.js",
-	"types": "src/index.ts",
-	"files": [
-		"dist",
-		"index.ts"
-	]
+	"types": "./src/types.d.ts",
+	"files": ["dist", "index.ts"]
 }
