@@ -5,14 +5,11 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc",
-		"patch": "tsc && npm version patch && npm publish",
-		"minor": "tsc &&npm version minor && npm publish",
-		"major": "tsc &&npm version major && npm publish"
+		"patch": "npm version patch && npm publish",
+		"minor": "npm version minor && npm publish",
+		"major": "npm version major && npm publish"
 	},
-	"keywords": [
-		"canvas",
-		"HTML"
-	],
+	"keywords": ["canvas", "HTML"],
 	"author": "@gitstudentsem",
 	"license": "MIT",
 	"repository": {
@@ -21,5 +18,6 @@
 	},
 	"homepage": "https://github.com/GitStudentSem/canvas-parameters#readme",
 	"main": "dist/index.js",
-	"types": "dist/index.d.ts"
+	"types": "dist/index.d.ts",
+	"files": ["dist"]
 }
