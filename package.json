@@ -9,10 +9,7 @@
 		"minor": "tsc &&npm version minor && npm publish",
 		"major": "tsc &&npm version major && npm publish"
 	},
-	"keywords": [
-		"canvas",
-		"HTML"
-	],
+	"keywords": ["canvas", "HTML"],
 	"author": "@gitstudentsem",
 	"license": "MIT",
 	"repository": {
@@ -21,9 +18,6 @@
 	},
 	"homepage": "https://github.com/GitStudentSem/canvas-parameters#readme",
 	"main": "dist/index.js",
-	"types": "./src/index.d.ts",
-	"files": [
-		"dist",
-		"index.ts"
-	]
+	"types": "./dist/index.d.ts",
+	"files": ["dist", "index.ts"]
 }
