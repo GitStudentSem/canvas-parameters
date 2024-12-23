@@ -1,37 +1,35 @@
-declare module "canvas-parameters" {
-	export type InputsInfo = Array<
-		Omit<Partial<HTMLInputElement>, "value" | "name"> & {
-			/** uniq name for the control */
-			name: string;
-			/** The value for the input */
-			value: string | number;
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-			onChange: (value: any) => void;
-		}
-	>;
-
-	export interface Position {
-		top?: CSSStyleDeclaration["top"];
-		left?: CSSStyleDeclaration["left"];
+export type InputsInfo = Array<
+	Omit<Partial<HTMLInputElement>, "value" | "name"> & {
+		/** uniq name for the control */
+		name: string;
+		/** The value for the input */
+		value: string | number;
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		onChange: (value: any) => void;
 	}
+>;
 
-	export interface Options {
-		/**
-		 * Is show parameters by default
-		 * @default true
-		 */
-		defaultVisible?: boolean;
+export interface Position {
+	top?: CSSStyleDeclaration["top"];
+	left?: CSSStyleDeclaration["left"];
+}
 
-		/**
-		 * HTML event for show parameters
-		 * @default "dblclick"
-		 */
-		onShowEvent?: string;
+export interface Options {
+	/**
+	 * Is show parameters by default
+	 * @default true
+	 */
+	defaultVisible?: boolean;
 
-		/** For clear canvas or new init function */
-		onUpdateCanvas?: () => void;
+	/**
+	 * HTML event for show parameters
+	 * @default "dblclick"
+	 */
+	onShowEvent?: string;
 
-		/** Positon of the parameters on page */
-		position?: Position;
-	}
+	/** For clear canvas or new init function */
+	onUpdateCanvas?: () => void;
+
+	/** Positon of the parameters on page */
+	position?: Position;
 }

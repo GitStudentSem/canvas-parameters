@@ -1,18 +1,20 @@
 {
 	"name": "canvas-parameters",
 	"version": "1.2.10",
-	"description": "Adds an element with settings for your project canvases",
 	"type": "module",
 	"scripts": {
-		"build": "tsc",
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
 		"patch": "npm version patch && npm publish",
 		"minor": "npm version minor && npm publish",
 		"major": "npm version major && npm publish"
 	},
-	"keywords": [
-		"canvas",
-		"HTML"
-	],
+	"devDependencies": {
+		"typescript": "~5.6.2",
+		"vite": "^6.0.3"
+	},
+	"keywords": ["canvas", "HTML"],
 	"author": "@gitstudentsem",
 	"license": "MIT",
 	"repository": {
@@ -22,7 +24,5 @@
 	"homepage": "https://github.com/GitStudentSem/canvas-parameters#readme",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist"
-	]
+	"files": ["dist"]
 }

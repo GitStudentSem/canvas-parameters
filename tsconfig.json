@@ -1,23 +1,24 @@
 {
 	"compilerOptions": {
-		"target": "es5",
+		"target": "ES2020",
 		"useDefineForClassFields": true,
-		"module": "commonjs",
-		"lib": ["ES2017.Object", "ES2017", "DOM"],
+		"module": "ESNext",
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"skipLibCheck": true,
-		"outDir": "./dist",
-		"rootDir": "./src",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
+
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
 		"isolatedModules": true,
 		"moduleDetection": "force",
+		"noEmit": true,
+
+		/* Linting */
 		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true,
-		"allowSyntheticDefaultImports": true,
-		"declaration": true
+		"noFallthroughCasesInSwitch": true
+		// "noUncheckedSideEffectImports": true
 	},
-	"include": ["src/**/*", "types/**/*"],
-	"exclude": ["testPlayGround", "images"]
+	"include": ["src"]
 }
