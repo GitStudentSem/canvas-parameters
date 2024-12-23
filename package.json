@@ -1,6 +1,6 @@
 {
 	"name": "canvas-parameters",
-	"version": "1.2.8",
+	"version": "1.2.9",
 	"description": "Adds an element with settings for your project canvases",
 	"type": "module",
 	"scripts": {
@@ -9,7 +9,10 @@
 		"minor": "tsc &&npm version minor && npm publish",
 		"major": "tsc &&npm version major && npm publish"
 	},
-	"keywords": ["canvas", "HTML"],
+	"keywords": [
+		"canvas",
+		"HTML"
+	],
 	"author": "@gitstudentsem",
 	"license": "MIT",
 	"repository": {
