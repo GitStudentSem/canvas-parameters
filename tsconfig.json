@@ -15,8 +15,10 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+		"declaration": true,
+		"emitDeclarationOnly": true
 	},
-	"include": ["src/**/*"],
+	"include": ["./src/**/*", "./index.d.ts"],
 	"exclude": ["testPlayGround", "images"]
 }

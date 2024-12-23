@@ -1,5 +1,3 @@
-import type { InputsInfo, Options, Position } from "./types";
-
 export default class CanvasParameters {
 	parametersWrapper?: HTMLDivElement;
 	inputsInfo: InputsInfo;
@@ -7,9 +5,10 @@ export default class CanvasParameters {
 	isVisible: boolean;
 	position?: Position;
 	onUpdateCanvas?: () => void;
+
 	constructor(inputsInfo: InputsInfo, options?: Options) {
 		this.inputsInfo = inputsInfo;
-		this.isVisible = options?.defaulsVisible || true;
+		this.isVisible = options?.defaultVisible || true;
 		this.onShowEvent = options?.onShowEvent || "dblclick";
 		this.position = options?.position;
 
