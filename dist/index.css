@@ -1,0 +1,27 @@
+:root {
+  --parameters-display: grid;
+  --parameters-position-top: 0px;
+  --parameters-position-left: 0px;
+}
+
+.parameters-wrapper {
+  position: absolute;
+  top: var(--parameters-position-top);
+  left: var(--parameters-position-left);
+
+  background-color: rgba(0, 0, 0, 0.5);
+  font-family: sans-serif;
+  padding: 5px;
+  display: var(--parameters-display);
+  grid-template-columns: repeat(2, 1fr);
+  user-select: none;
+  gap: 5px;
+  align-items: center;
+  color: #ffffff;
+}
+.parameters-input {
+  display: "block";
+  margin: "5px";
+  outline: 0;
+  border: none;
+}

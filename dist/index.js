@@ -32,6 +32,12 @@ var CanvasParameters = /** @class */ (function () {
             writable: true,
             value: void 0
         });
+        Object.defineProperty(this, "helpText", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
         Object.defineProperty(this, "onUpdateCanvas", {
             enumerable: true,
             configurable: true,
@@ -42,10 +48,12 @@ var CanvasParameters = /** @class */ (function () {
         this.isVisible = (options === null || options === void 0 ? void 0 : options.defaultVisible) || true;
         this.onShowEvent = (options === null || options === void 0 ? void 0 : options.onShowEvent) || "dblclick";
         this.position = options === null || options === void 0 ? void 0 : options.position;
+        this.helpText = (options === null || options === void 0 ? void 0 : options.helpText) || [];
         this.onUpdateCanvas = options === null || options === void 0 ? void 0 : options.onUpdateCanvas;
         this.createParameters();
-        this.createInputs(this.getParametersWrapper());
-        this.handleClick();
+        this.createInputs();
+        this.createHelpText();
+        this.handleEvent();
     }
     Object.defineProperty(CanvasParameters.prototype, "createParameters", {
         enumerable: false,
@@ -53,6 +61,7 @@ var CanvasParameters = /** @class */ (function () {
         writable: true,
         value: function () {
             var parametersWrapper = document.createElement("div");
+            parametersWrapper.classList.add("parameters-wrapper");
             document.body.appendChild(parametersWrapper);
             this.parametersWrapper = parametersWrapper;
             this.setStyleForParametersWrapperNode();
@@ -62,17 +71,17 @@ var CanvasParameters = /** @class */ (function () {
         enumerable: false,
         configurable: true,
         writable: true,
-        value: function (parametersWrapper) {
+        value: function () {
+            var parametersWrapper = this.getParametersWrapper();
             for (var i = 0; i < this.inputsInfo.length; i++) {
                 var inputInfo = this.inputsInfo[i];
                 var labelNode = document.createElement("label");
                 labelNode.textContent =
                     inputInfo.placeholder || "Placeholder is not defined";
                 var inputNode = document.createElement("input");
-                var randomId = Math.random().toString();
-                labelNode.htmlFor = randomId;
-                inputNode.id = randomId;
-                this.setStyleForInputNode(inputNode);
+                labelNode.htmlFor = inputInfo.name;
+                inputNode.id = inputInfo.name;
+                inputNode.classList.add("parameters-input");
                 for (var j = 0; j < Object.entries(inputInfo).length; j++) {
                     var _a = Object.entries(inputInfo)[j], key = _a[0], value = _a[1];
                     if (value) {
@@ -96,33 +105,25 @@ var CanvasParameters = /** @class */ (function () {
             return this.parametersWrapper;
         }
     });
-    Object.defineProperty(CanvasParameters.prototype, "handleClick", {
+    Object.defineProperty(CanvasParameters.prototype, "setDisplayParameters", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            var display = this.isVisible ? "grid" : "none";
+            document.documentElement.style.setProperty("--parameters-display", display);
+        }
+    });
+    Object.defineProperty(CanvasParameters.prototype, "handleEvent", {
         enumerable: false,
         configurable: true,
         writable: true,
         value: function () {
             var _this = this;
             document.addEventListener(this.onShowEvent, function () {
-                var parametersWrapper = _this.getParametersWrapper();
-                if (_this.isVisible) {
-                    parametersWrapper.style.display = "none";
-                }
-                else {
-                    parametersWrapper.style.display = "grid";
-                }
+                _this.setDisplayParameters();
                 _this.isVisible = !_this.isVisible;
             });
-        }
-    });
-    Object.defineProperty(CanvasParameters.prototype, "setStyleForInputNode", {
-        enumerable: false,
-        configurable: true,
-        writable: true,
-        value: function (inputNode) {
-            inputNode.style.display = "block";
-            inputNode.style.margin = "5px";
-            inputNode.style.outline = "0";
-            inputNode.style.border = "none";
         }
     });
     Object.defineProperty(CanvasParameters.prototype, "setStyleForParametersWrapperNode", {
@@ -131,19 +132,9 @@ var CanvasParameters = /** @class */ (function () {
         writable: true,
         value: function () {
             var _a, _b;
-            var parametersWrapper = this.getParametersWrapper();
-            parametersWrapper.style.position = "absolute";
-            parametersWrapper.style.top = ((_a = this.position) === null || _a === void 0 ? void 0 : _a.top) || "0px";
-            parametersWrapper.style.left = ((_b = this.position) === null || _b === void 0 ? void 0 : _b.left) || "0px";
-            parametersWrapper.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-            parametersWrapper.style.fontFamily = "sans-serif";
-            parametersWrapper.style.padding = "5px";
-            parametersWrapper.style.display = this.isVisible ? "grid" : "none";
-            parametersWrapper.style.gridTemplateColumns = "repeat(2, 1fr)";
-            parametersWrapper.style.userSelect = "none";
-            parametersWrapper.style.gap = "5px";
-            parametersWrapper.style.alignItems = "center";
-            parametersWrapper.style.color = "#ffffff";
+            this.setDisplayParameters();
+            document.documentElement.style.setProperty("--parameters-position-top", ((_a = this.position) === null || _a === void 0 ? void 0 : _a.top) || "0px");
+            document.documentElement.style.setProperty("--parameters-position-left", ((_b = this.position) === null || _b === void 0 ? void 0 : _b.left) || "0px");
         }
     });
     Object.defineProperty(CanvasParameters.prototype, "handleInputChange", {
@@ -152,7 +143,7 @@ var CanvasParameters = /** @class */ (function () {
         writable: true,
         value: function (inputNode) {
             var _this = this;
-            inputNode.addEventListener("input", function (e) {
+            inputNode.addEventListener("change", function (e) {
                 var _a;
                 var target = e.target;
                 if (!target)
@@ -165,6 +156,23 @@ var CanvasParameters = /** @class */ (function () {
                 control.onChange(target.value);
                 (_a = _this.onUpdateCanvas) === null || _a === void 0 ? void 0 : _a.call(_this);
             });
+        }
+    });
+    Object.defineProperty(CanvasParameters.prototype, "createHelpText", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            var texts = this.helpText;
+            if (!texts)
+                return;
+            var parametersWrapper = this.getParametersWrapper();
+            for (var i = 0; i < texts.length; i++) {
+                var text = texts[i];
+                var textNode = document.createElement("p");
+                textNode.textContent = text;
+                parametersWrapper.appendChild(textNode);
+            }
         }
     });
     return CanvasParameters;

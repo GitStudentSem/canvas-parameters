@@ -32,6 +32,8 @@ export interface Options {
 
 	/** Positon of the parameters on page */
 	position?: Position;
+
+	helpText?: string[];
 }
 
 export default class CanvasParameters {
@@ -40,6 +42,7 @@ export default class CanvasParameters {
 	onShowEvent: string;
 	isVisible: boolean;
 	position?: Position;
+	helpText?: string[];
 	onUpdateCanvas?: () => void;
 
 	constructor(inputsInfo: InputsInfo, options?: Options) {
@@ -47,35 +50,37 @@ export default class CanvasParameters {
 		this.isVisible = options?.defaultVisible || true;
 		this.onShowEvent = options?.onShowEvent || "dblclick";
 		this.position = options?.position;
+		this.helpText = options?.helpText || [];
 
 		this.onUpdateCanvas = options?.onUpdateCanvas;
 		this.createParameters();
-		this.createInputs(this.getParametersWrapper());
-		this.handleClick();
+		this.createInputs();
+		this.createHelpText();
+		this.handleEvent();
 	}
 
 	private createParameters() {
 		const parametersWrapper = document.createElement("div");
-
+		parametersWrapper.classList.add("parameters-wrapper");
 		document.body.appendChild(parametersWrapper);
 
 		this.parametersWrapper = parametersWrapper;
 		this.setStyleForParametersWrapperNode();
 	}
 
-	private createInputs(parametersWrapper: HTMLDivElement) {
+	private createInputs() {
+		const parametersWrapper = this.getParametersWrapper();
+
 		for (let i = 0; i < this.inputsInfo.length; i++) {
 			const inputInfo = this.inputsInfo[i];
 			const labelNode = document.createElement("label");
 			labelNode.textContent =
 				inputInfo.placeholder || "Placeholder is not defined";
 			const inputNode = document.createElement("input");
-			const randomId = Math.random().toString();
 
-			labelNode.htmlFor = randomId;
-			inputNode.id = randomId;
-
-			this.setStyleForInputNode(inputNode);
+			labelNode.htmlFor = inputInfo.name;
+			inputNode.id = inputInfo.name;
+			inputNode.classList.add("parameters-input");
 
 			for (let j = 0; j < Object.entries(inputInfo).length; j++) {
 				const [key, value] = Object.entries(inputInfo)[j];
@@ -97,43 +102,34 @@ export default class CanvasParameters {
 		return this.parametersWrapper;
 	}
 
-	private handleClick() {
+	private setDisplayParameters() {
+		const display = this.isVisible ? "grid" : "none";
+
+		document.documentElement.style.setProperty("--parameters-display", display);
+	}
+
+	private handleEvent() {
 		document.addEventListener(this.onShowEvent, () => {
-			const parametersWrapper = this.getParametersWrapper();
-			if (this.isVisible) {
-				parametersWrapper.style.display = "none";
-			} else {
-				parametersWrapper.style.display = "grid";
-			}
+			this.setDisplayParameters();
 			this.isVisible = !this.isVisible;
 		});
 	}
 
-	private setStyleForInputNode(inputNode: HTMLInputElement) {
-		inputNode.style.display = "block";
-		inputNode.style.margin = "5px";
-		inputNode.style.outline = "0";
-		inputNode.style.border = "none";
-	}
-
 	private setStyleForParametersWrapperNode() {
-		const parametersWrapper = this.getParametersWrapper();
-		parametersWrapper.style.position = "absolute";
-		parametersWrapper.style.top = this.position?.top || "0px";
-		parametersWrapper.style.left = this.position?.left || "0px";
-		parametersWrapper.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-		parametersWrapper.style.fontFamily = "sans-serif";
-		parametersWrapper.style.padding = "5px";
-		parametersWrapper.style.display = this.isVisible ? "grid" : "none";
-		parametersWrapper.style.gridTemplateColumns = "repeat(2, 1fr)";
-		parametersWrapper.style.userSelect = "none";
-		parametersWrapper.style.gap = "5px";
-		parametersWrapper.style.alignItems = "center";
-		parametersWrapper.style.color = "#ffffff";
+		this.setDisplayParameters();
+
+		document.documentElement.style.setProperty(
+			"--parameters-position-top",
+			this.position?.top || "0px",
+		);
+		document.documentElement.style.setProperty(
+			"--parameters-position-left",
+			this.position?.left || "0px",
+		);
 	}
 
 	private handleInputChange(inputNode: HTMLInputElement) {
-		inputNode.addEventListener("input", (e) => {
+		inputNode.addEventListener("change", (e) => {
 			const target = e.target as HTMLInputElement;
 			if (!target) throw new Error("Target was not founed");
 
@@ -145,5 +141,18 @@ export default class CanvasParameters {
 			control.onChange(target.value);
 			this.onUpdateCanvas?.();
 		});
+	}
+
+	private createHelpText() {
+		const texts = this.helpText;
+		if (!texts) return;
+
+		const parametersWrapper = this.getParametersWrapper();
+		for (let i = 0; i < texts.length; i++) {
+			const text = texts[i];
+			const textNode = document.createElement("p");
+			textNode.textContent = text;
+			parametersWrapper.appendChild(textNode);
+		}
 	}
 }

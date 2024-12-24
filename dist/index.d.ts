@@ -24,6 +24,7 @@ export interface Options {
     onUpdateCanvas?: () => void;
     /** Positon of the parameters on page */
     position?: Position;
+    helpText?: string[];
 }
 export default class CanvasParameters {
     parametersWrapper?: HTMLDivElement;
@@ -31,13 +32,15 @@ export default class CanvasParameters {
     onShowEvent: string;
     isVisible: boolean;
     position?: Position;
+    helpText?: string[];
     onUpdateCanvas?: () => void;
     constructor(inputsInfo: InputsInfo, options?: Options);
     private createParameters;
     private createInputs;
     private getParametersWrapper;
-    private handleClick;
-    private setStyleForInputNode;
+    private setDisplayParameters;
+    private handleEvent;
     private setStyleForParametersWrapperNode;
     private handleInputChange;
+    private createHelpText;
 }
