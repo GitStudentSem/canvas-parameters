@@ -165,6 +165,7 @@ export default class CanvasParameters {
 		for (let i = 0; i < texts.length; i++) {
 			const text = texts[i];
 			const textNode = document.createElement("p");
+			textNode.classList.add("parameters-help-text");
 			textNode.textContent = text;
 			parametersWrapper.appendChild(textNode);
 		}
