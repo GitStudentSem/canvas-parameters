@@ -11,9 +11,15 @@ Install сanvas-parameters with npm
 ```bash
   npm i canvas-parameters
 ```
-    
+
 
 ### Example usage
+Import styles in your css file
+```css
+@import "canvas-parameters/dist/index.css";
+```
+
+Import Class in your js file
 ```javascript
 import CanvasParameters from "canvas-parameters";
 
