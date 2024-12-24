@@ -15,13 +15,13 @@
   padding: 5px;
 
   user-select: none;
-  gap: 5px;
   align-items: center;
   color: #ffffff;
 }
 .inputs-wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
 }
 .parameters-input {
   display: "block";
