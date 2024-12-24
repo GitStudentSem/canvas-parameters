@@ -8,6 +8,12 @@ var CanvasParameters = /** @class */ (function () {
             writable: true,
             value: void 0
         });
+        Object.defineProperty(this, "inputsWrapper", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
         Object.defineProperty(this, "inputsInfo", {
             enumerable: true,
             configurable: true,
@@ -61,9 +67,13 @@ var CanvasParameters = /** @class */ (function () {
         writable: true,
         value: function () {
             var parametersWrapper = document.createElement("div");
+            var inputsWrapper = document.createElement("div");
             parametersWrapper.classList.add("parameters-wrapper");
+            inputsWrapper.classList.add("inputs-wrapper");
             document.body.appendChild(parametersWrapper);
+            document.body.appendChild(inputsWrapper);
             this.parametersWrapper = parametersWrapper;
+            this.inputsWrapper = inputsWrapper;
             this.setStyleForParametersWrapperNode();
         }
     });
@@ -72,7 +82,7 @@ var CanvasParameters = /** @class */ (function () {
         configurable: true,
         writable: true,
         value: function () {
-            var parametersWrapper = this.getParametersWrapper();
+            var inputsWrapper = this.getInputsWrapper();
             for (var i = 0; i < this.inputsInfo.length; i++) {
                 var inputInfo = this.inputsInfo[i];
                 var labelNode = document.createElement("label");
@@ -89,8 +99,8 @@ var CanvasParameters = /** @class */ (function () {
                     }
                 }
                 this.handleInputChange(inputNode);
-                parametersWrapper.appendChild(labelNode);
-                parametersWrapper.appendChild(inputNode);
+                inputsWrapper.appendChild(labelNode);
+                inputsWrapper.appendChild(inputNode);
             }
         }
     });
@@ -103,6 +113,17 @@ var CanvasParameters = /** @class */ (function () {
                 throw new Error("The wrapper for the parameters was not created.");
             }
             return this.parametersWrapper;
+        }
+    });
+    Object.defineProperty(CanvasParameters.prototype, "getInputsWrapper", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            if (!this.inputsWrapper) {
+                throw new Error("The wrapper for the inputs was not created.");
+            }
+            return this.inputsWrapper;
         }
     });
     Object.defineProperty(CanvasParameters.prototype, "setDisplayParameters", {

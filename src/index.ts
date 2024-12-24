@@ -38,6 +38,7 @@ export interface Options {
 
 export default class CanvasParameters {
 	parametersWrapper?: HTMLDivElement;
+	inputsWrapper?: HTMLDivElement;
 	inputsInfo: InputsInfo;
 	onShowEvent: string;
 	isVisible: boolean;
@@ -61,15 +62,21 @@ export default class CanvasParameters {
 
 	private createParameters() {
 		const parametersWrapper = document.createElement("div");
+		const inputsWrapper = document.createElement("div");
+
 		parametersWrapper.classList.add("parameters-wrapper");
+		inputsWrapper.classList.add("inputs-wrapper");
+
 		document.body.appendChild(parametersWrapper);
+		document.body.appendChild(inputsWrapper);
 
 		this.parametersWrapper = parametersWrapper;
+		this.inputsWrapper = inputsWrapper;
 		this.setStyleForParametersWrapperNode();
 	}
 
 	private createInputs() {
-		const parametersWrapper = this.getParametersWrapper();
+		const inputsWrapper = this.getInputsWrapper();
 
 		for (let i = 0; i < this.inputsInfo.length; i++) {
 			const inputInfo = this.inputsInfo[i];
@@ -90,8 +97,8 @@ export default class CanvasParameters {
 			}
 
 			this.handleInputChange(inputNode);
-			parametersWrapper.appendChild(labelNode);
-			parametersWrapper.appendChild(inputNode);
+			inputsWrapper.appendChild(labelNode);
+			inputsWrapper.appendChild(inputNode);
 		}
 	}
 
@@ -100,6 +107,13 @@ export default class CanvasParameters {
 			throw new Error("The wrapper for the parameters was not created.");
 		}
 		return this.parametersWrapper;
+	}
+
+	private getInputsWrapper() {
+		if (!this.inputsWrapper) {
+			throw new Error("The wrapper for the inputs was not created.");
+		}
+		return this.inputsWrapper;
 	}
 
 	private setDisplayParameters() {

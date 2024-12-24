@@ -12,12 +12,15 @@
   background-color: rgba(0, 0, 0, 0.5);
   font-family: sans-serif;
   padding: 5px;
-  display: var(--parameters-display);
-  grid-template-columns: repeat(2, 1fr);
+
   user-select: none;
   gap: 5px;
   align-items: center;
   color: #ffffff;
+}
+.inputs-wrapper {
+  display: var(--parameters-display);
+  grid-template-columns: repeat(2, 1fr);
 }
 .parameters-input {
   display: "block";

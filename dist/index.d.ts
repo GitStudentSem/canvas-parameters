@@ -28,6 +28,7 @@ export interface Options {
 }
 export default class CanvasParameters {
     parametersWrapper?: HTMLDivElement;
+    inputsWrapper?: HTMLDivElement;
     inputsInfo: InputsInfo;
     onShowEvent: string;
     isVisible: boolean;
@@ -38,6 +39,7 @@ export default class CanvasParameters {
     private createParameters;
     private createInputs;
     private getParametersWrapper;
+    private getInputsWrapper;
     private setDisplayParameters;
     private handleEvent;
     private setStyleForParametersWrapperNode;
