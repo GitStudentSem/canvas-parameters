@@ -191,6 +191,7 @@ var CanvasParameters = /** @class */ (function () {
             for (var i = 0; i < texts.length; i++) {
                 var text = texts[i];
                 var textNode = document.createElement("p");
+                textNode.classList.add("parameters-help-text");
                 textNode.textContent = text;
                 parametersWrapper.appendChild(textNode);
             }
