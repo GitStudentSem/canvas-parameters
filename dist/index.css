@@ -6,6 +6,7 @@
 
 .parameters-wrapper {
   position: absolute;
+  display: var(--parameters-display);
   top: var(--parameters-position-top);
   left: var(--parameters-position-left);
 
@@ -19,7 +20,7 @@
   color: #ffffff;
 }
 .inputs-wrapper {
-  display: var(--parameters-display);
+  display: "grid";
   grid-template-columns: repeat(2, 1fr);
 }
 .parameters-input {

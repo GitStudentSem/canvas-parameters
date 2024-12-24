@@ -68,7 +68,7 @@ export default class CanvasParameters {
 		inputsWrapper.classList.add("inputs-wrapper");
 
 		document.body.appendChild(parametersWrapper);
-		document.body.appendChild(inputsWrapper);
+		parametersWrapper.appendChild(inputsWrapper);
 
 		this.parametersWrapper = parametersWrapper;
 		this.inputsWrapper = inputsWrapper;
@@ -117,7 +117,7 @@ export default class CanvasParameters {
 	}
 
 	private setDisplayParameters() {
-		const display = this.isVisible ? "grid" : "none";
+		const display = this.isVisible ? "block" : "none";
 
 		document.documentElement.style.setProperty("--parameters-display", display);
 	}

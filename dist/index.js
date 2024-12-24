@@ -71,7 +71,7 @@ var CanvasParameters = /** @class */ (function () {
             parametersWrapper.classList.add("parameters-wrapper");
             inputsWrapper.classList.add("inputs-wrapper");
             document.body.appendChild(parametersWrapper);
-            document.body.appendChild(inputsWrapper);
+            parametersWrapper.appendChild(inputsWrapper);
             this.parametersWrapper = parametersWrapper;
             this.inputsWrapper = inputsWrapper;
             this.setStyleForParametersWrapperNode();
@@ -131,7 +131,7 @@ var CanvasParameters = /** @class */ (function () {
         configurable: true,
         writable: true,
         value: function () {
-            var display = this.isVisible ? "grid" : "none";
+            var display = this.isVisible ? "block" : "none";
             document.documentElement.style.setProperty("--parameters-display", display);
         }
     });
